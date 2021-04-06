@@ -1,0 +1,133 @@
+﻿The mutidillae II environment (made by OWASP) was installed on top of a LAMP stack on Ubuntu 20.04. First, Apache2, PHP 7.4 and MySQL 8.0 were installed, using documentation provided by OWASP (https://github.com/webpwnized/mutillidae/blob/master/README-INSTALLATION.md). Some non-fundamental steps were skipped in the following lines.
+
+
+sudo apt install apache2 
+sudo a2enmod rewrite
+systemctl restart apache2
+
+
+vim /etc/apache2/apache2.conf 
+
+
+Within this file, the following line:
+
+
+<Directory /var/www/>
+       Options Indexes FollowSymLinks
+       AllowOverride None
+       Require all granted
+</Directory>
+
+
+must be changed from None to All.
+
+
+sudo apt install php libapache2-mod-php mysql-server php-mysql
+sudo apt install php7.4-curl php7.4-mbstring php7.4-xml
+systemctl restart apache2
+
+
+sudo mysql -u root
+
+
+Within the DB, a user was created and its password was changed to 'mutillidae'. This configuration was reflected in the configuration file utillidae/includes/database-config.php.
+
+
+
+
+CREATE USER 'mutidillae'@'localhost' IDENTIFIED BY 'mutidillae';
+GRANT ALL PRIVILEGES ON * . * TO 'mutidillae'@'localhost';
+FLUSH privileges;
+
+
+Finally, the source code was downloaded and uploaded to the Apache2 server.
+
+
+cd /var/www/html/
+sudo git clone https://git.code.sf.net/p/mutillidae/git mutillidae
+systemctl restart apache2
+
+
+Once everything has been set up, the website tries to generate its own database, prompting the user to fix eventual errors during the loading within the page itself. Finally, the homepage of the environment is available, presenting the user with a variety of attacks similar to WebGoat, divided by the OWASP Top 10 year and exploit itself. 
+
+
+For the purpose of this assignment, the following exercises were selected. Each one has a distinctive marker [x]. Solutions are found further below, for each exercise. Some pages appear more than one, and were exploited using the suggested time (e.g. Login both with regular injection and blind)
+
+
+OWASP 2017
+    A1 - Injection (SQL)
+        SQLi - Extract Data
+            [1] User Info (SQL)
+        SQLi - Bypass Authentication
+            [2] Login
+        SQLi - Insert injection
+            [3] Add to your blog
+            [4] Register
+        Blind SQL via timing
+            [5] Login
+
+
+[1]
+
+
+The following query must be inserted in both parameters to retrieve all the data in the users table.
+
+
+anything' or '1' = '1
+
+
+[2]
+
+
+The data retrieved in the previous exercise can be used here for logging in as any user. The query is the same:
+
+
+anything' or '1' = '1
+
+
+replacing anything with the desired username. As long as the query is inserted only in the username field, no password checks will be made and the login will be completed.
+
+
+[3]
+
+
+The query syntax can be obtained by trial and error. Once done, a simple query as that can manipulate anything within the table:
+
+
+blabla', now()); drop table blogs_table; -- 
+
+
+The table can be then either dropped or entries removed and/or updated from it. 
+
+
+[4]
+
+
+The previous approach works more or less the same this time. We can observe that the signature paramter is then reflected in a message in the top banner. Injecting that parameter can help us damage the DMBS or even better, retrieve information, such as:
+
+
+select version()
+
+
+or 
+
+
+select authentication_string from mysql.user where user='root'
+
+
+A sample query to be inserted in the username parameter could be:
+
+
+diodio', 'diodio', (select Authentication_string from mysql.user where user='root'))-- 
+
+
+[5]
+
+
+We can also use time-based blind attacks to guess passwords on this form. An example would be
+
+
+1' and '1' = '0' union select if (substring(password,1,1) = 'a', sleep(5),null) from accounts where username='admin';-- 
+
+
+We guessed the existence of the 'admin' account, so we can script out this query in order to retrieve the full password.
