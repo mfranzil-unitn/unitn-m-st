@@ -23,24 +23,26 @@ It will run a server at
 http://localhost:5000
 ```
 
-# Reflected XSS
+## Reflected XSS
 
-## XSS-1
+### XSS-1
 
 Nominal behaviour: `GET /hello?name=Ivan`
 
 Exercise:
+
 1. Try to add your text in **bold**
 2. Fix the vulnerability
 
-## XSS-2
+### XSS-2
 
 Nominal behaviour: `GET /hello?name=Ivan`
 Exercise:
+
 1. Try to add a Button with text me "Click Me". The button click must trigger an alert with the content "You have a Virus!"
 2. Fix the vulnerability
 
-## XSS-3
+### XSS-3
 
 Nominal behaviour: `GET /hello?name=Ivan`
 
@@ -50,7 +52,7 @@ Exercise :
 2. Assert the cookie is correct, you will receive a webpage with `Congrats!`  
 3. Fix it
 
-# Stored XSS
+## Stored XSS
 
 You have a database `stations.db` with a table `stations`.
 Table `stations` contains `station_id` and `location`.
@@ -58,7 +60,7 @@ Table `stations` contains `station_id` and `location`.
 - Use `GET /stations` to have a HTML with a list of all the stations.
 - Use `GET /add?id=<station-id>&location=<station-location>` to add a new station.
 
-Exercise: 
+Exercise:
 
 1. Exploit the stored XSS vulnerability
 2. Fix it

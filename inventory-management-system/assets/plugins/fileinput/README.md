@@ -1,4 +1,5 @@
-bootstrap-fileinput
+# Bootstrap-Fileinput
+
 ===================
 
 [![Bower version](https://badge.fury.io/bo/bootstrap-fileinput.svg)](http://badge.fury.io/bo/bootstrap-fileinput)
@@ -11,11 +12,11 @@ An enhanced HTML 5 file input for Bootstrap 3.x with file preview for various fi
 
 ![File Input Screenshot](https://lh3.googleusercontent.com/-3FiEmc_okc4/VBw_d2LBAJI/AAAAAAAAAL8/KbVj5X9Dus0/w596-h454-no/FileInput.jpg)
 
-> NOTE: The latest version of the plugin is v4.3.2 (dev-master). Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details. 
+> NOTE: The latest version of the plugin is v4.3.2 (dev-master). Refer the [CHANGE LOG](https://github.com/kartik-v/bootstrap-fileinput/blob/master/CHANGE.md) for details.
 
 ## Documentation and Demo
 
-View the [plugin documentation](http://plugins.krajee.com/file-input) and [plugin demos](http://plugins.krajee.com/file-input/demo) at Krajee JQuery plugins. 
+View the [plugin documentation](http://plugins.krajee.com/file-input) and [plugin demos](http://plugins.krajee.com/file-input/demo) at Krajee JQuery plugins.
 
 ## Pre-requisites  
 
@@ -30,18 +31,26 @@ The [master branch](https://github.com/kartik-v/bootstrap-fileinput/tree/master)
 ## Installation
 
 ### Using Bower
+
 You can use the `bower` package manager to install. Run:
 
-    bower install bootstrap-fileinput
+```shell
+bower install bootstrap-fileinput
+```
 
 ### Using Composer
+
 You can use the `composer` package manager to install. Either run:
 
-    $ php composer.phar require kartik-v/bootstrap-fileinput "@dev"
+```shell
+php composer.phar require kartik-v/bootstrap-fileinput "@dev"
+```
 
 or add:
 
-    "kartik-v/bootstrap-fileinput": "@dev"
+```shell
+"kartik-v/bootstrap-fileinput": "@dev"
+```
 
 to your composer.json file
 
@@ -51,7 +60,7 @@ You can also manually install the plugin easily to your project. Just download t
 
 ## Usage
 
-Step 1: Load the following assets in your header. 
+Step 1: Load the following assets in your header.
 
 ```html
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -81,9 +90,9 @@ Step 1: Load the following assets in your header.
 
 If you noticed, you need to load the `jquery.min.js` and `bootstrap.min.css` in addition to the `fileinput.min.css` and `fileinput.min.js`. The theme file `fa.js` can be optionally included for the font awesome icons styling. The locale file `<lang>.js` can be optionally included for translating for your language if needed.
 
-**Optional Dependent Plugins**
+### Optional Dependent Plugins
 
-- The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.min.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin. 
+- The `canvas-to-blob.min.js` file is the source for the [JavaScript-Canvas-to-Blob plugin by blueimp](https://github.com/blueimp/JavaScript-Canvas-to-Blob). It is required to be loaded before `fileinput.min.js` if you wish to use the image resize feature of the **bootstrap-fileinput** plugin.
 - The `sortable.min.js` file is the source for the [Sortable plugin by rubaxa](https://github.com/rubaxa/Sortable). It is required to be loaded before `fileinput.min.js` if you wish to sort the thumbnails in the initial preview.
 - The `purify.min.js` file is the source for the [DomPurify plugin by cure53](https://github.com/cure53/DOMPurify). It is required to be loaded before `fileinput.min.js` if you wish to purify your HTML for HTML content preview.
 
@@ -99,7 +108,7 @@ $("#input-id").fileinput();
 $("#input-id").fileinput({'showUpload':false, 'previewFileType':'any'});
 ```
 
-The `#input-id` is the identifier for the input (e.g. `type = file`) on your page, which is hidden automatically by the plugin. 
+The `#input-id` is the identifier for the input (e.g. `type = file`) on your page, which is hidden automatically by the plugin.
 
 Alternatively, you can directly call the plugin options by setting data attributes to your input field.
 
